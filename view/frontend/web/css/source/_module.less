@@ -1,0 +1,23 @@
+& when (@media-common = true) {
+    .megabank-container {
+        width: 100%;
+        max-width: 550px;
+        position: relative;
+
+        iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+
+        .success-container {
+            margin: 0 0 20px;
+            font-size: 20px;
+
+            &::before {
+                content: "\2714";
+                color: #009900;
+            }
+        }
+    }
+}

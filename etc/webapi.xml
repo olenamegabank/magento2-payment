@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/guest-megabank-payment/:cartId/widget" method="POST">
+        <service class="MegaBank\Payment\Api\GuestCheckoutInterface" method="getWidget"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/megabank-payment/mine/widget" method="POST">
+        <service class="MegaBank\Payment\Api\CheckoutInterface" method="getWidget"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+
+    <route url="/V1/guest-megabank-payment/:cartId/check" method="POST">
+        <service class="MegaBank\Payment\Api\GuestCheckoutInterface" method="check"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/megabank-payment/mine/check" method="POST">
+        <service class="MegaBank\Payment\Api\CheckoutInterface" method="check"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+</routes>

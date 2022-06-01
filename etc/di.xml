@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="MegaBank\Payment\Api\GuestCheckoutInterface" type="MegaBank\Payment\Model\GuestCheckout"/>
+    <preference for="MegaBank\Payment\Api\CheckoutInterface" type="MegaBank\Payment\Model\Checkout"/>
+    <preference for="MegaBank\Payment\Api\QuoteTransactionInterface" type="MegaBank\Payment\Model\QuoteTransaction"/>
+    <preference for="MegaBank\Payment\Api\QuoteTransactionRepositoryInterface" type="MegaBank\Payment\Model\QuoteTransactionRepository"/>
+
+    <type name="MegaBank\Payment\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="MegaBank\Payment\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">Mega Bank Logger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">MegaBank\Payment\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="MegaBank\Commands\CreateSmsTransaction" shared="false"/>
+    <type name="MegaBank\Commands\CreateDmsTransaction" shared="false"/>
+    <type name="MegaBank\Commands\Widget" shared="false"/>
+    <type name="MegaBank\Commands\TransactionResult" shared="false"/>
+    <type name="MegaBank\Commands\Cancel" shared="false"/>
+    <type name="MegaBank\Commands\Refund" shared="false"/>
+    <type name="MegaBank\Commands\CompleteDms" shared="false"/>
+    <type name="MegaBank\Commands\CloseBusinessDay" shared="false"/>
+
+    <type name="MegaBank\Payment\Model\Operation">
+        <arguments>
+            <argument name="pool" xsi:type="array">
+                <item name="authorize_capture" xsi:type="object">MegaBank\Commands\CreateSmsTransactionFactory</item>
+                <item name="authorize" xsi:type="object">MegaBank\Commands\CreateDmsTransactionFactory</item>
+                <item name="widget" xsi:type="object">MegaBank\Commands\WidgetFactory</item>
+                <item name="result" xsi:type="object">MegaBank\Commands\TransactionResultFactory</item>
+                <item name="cancel" xsi:type="object">MegaBank\Commands\CancelFactory</item>
+                <item name="refund" xsi:type="object">MegaBank\Commands\RefundFactory</item>
+                <item name="completeDms" xsi:type="object">MegaBank\Commands\CompleteDmsFactory</item>
+                <item name="closeBusinessDay" xsi:type="object">MegaBank\Payment\Model\Operations\CloseBusinessDayFactory</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

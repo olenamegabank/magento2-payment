@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job instance="MegaBank\Payment\Cron\CloseBusinessDay" method="execute" name="megabank_payment_close_day">
+            <config_path>payment/megabank_payment/close_day/close_cron_expr</config_path>
+        </job>
+        <job instance="MegaBank\Payment\Cron\CancelTransactions" method="cancelTransactions" name="megabank_payment_cancel_old_transaction">
+            <schedule>*/15 * * * *</schedule>
+        </job>
+        <job instance="MegaBank\Payment\Cron\CancelTransactions" method="clearTransactions" name="megabank_payment_clear_old_transaction">
+            <schedule>* * * * *</schedule>
+        </job>
+    </group>
+</config>

@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="megabank_payment" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Mega Bank Payment</label>
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="language" translate="label" sortOrder="30" type="text" showInDefault="1" showInStore="1" showInWebsite="1" >
+                    <label>Language</label>
+                </field>
+                <field id="description" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Order Description</label>
+                </field>
+                <field id="payment_action" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Payment Action</label>
+                    <source_model>MegaBank\Payment\Model\Config\TransactionType</source_model>
+                </field>
+                <field id="enable_log" translate="label" type="select" canRestore="1" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable debug log</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="instructions" translate="label" type="textarea" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Instructions</label>
+                </field>
+                <field id="allowed_ip" translate="label comment" type="textarea" sortOrder="75" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Allowed Ip Addresses</label>
+                    <comment><![CDATA[Each address should be start from new line]]></comment>
+                </field>
+                <field id="allowspecific" translate="label" type="allowspecific" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Payment from Applicable Countries</label>
+                    <source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+                </field>
+                <field id="specificcountry" translate="label" type="multiselect" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Payment from Specific Countries</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sort Order</label>
+                    <validate>validate-number</validate>
+                </field>
+                <group id="api" translate="label" type="text" sortOrder="350" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Api Connection Settings</label>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                    <field id="environment" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Environment</label>
+                        <source_model>MegaBank\Payment\Model\Config\Environment</source_model>
+                        <config_path>payment/megabank_payment/environment</config_path>
+                    </field>
+                    <field id="api_url" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Api Url</label>
+                        <validate>required-entry</validate>
+                    </field>
+                    <field id="sandbox_api_url" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Sandbox Api Url</label>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="environment">sandbox</field>
+                        </depends>
+                    </field>
+                    <field id="widget_url" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Widget Url</label>
+                        <validate>required-entry</validate>
+                    </field>
+                    <field id="password" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Password</label>
+                    </field>
+                    <field id="ip" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Ip Address</label>
+                        <validate>required-entry</validate>
+                    </field>
+                    <field id="certificate" translate="label" type="MegaBank\Payment\Block\Adminhtml\System\Config\Form\Field\ObscureTextArea" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Certificate</label>
+                        <validate>required-entry</validate>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    </field>
+                    <field id="key" translate="label" type="MegaBank\Payment\Block\Adminhtml\System\Config\Form\Field\ObscureTextArea" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Key</label>
+                        <validate>required-entry</validate>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    </field>
+                    <field id="success_url" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <frontend_model>MegaBank\Payment\Block\Adminhtml\System\Config\Form\Field\SuccessUrl</frontend_model>
+                        <label>Success URL</label>
+                    </field>
+                </group>
+                <group id="close_day" translate="label" type="text" sortOrder="300" showInDefault="1">
+                    <label>Close Business Day Settings</label>
+                    <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1">
+                        <label>Enable Cron Close</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="close_cron_expr" translate="label" type="text" showInDefault="1" sortOrder="21">
+                        <label>Cron Schedule</label>
+                        <frontend_model>MegaBank\Payment\Block\Adminhtml\System\Config\Form\Field\CronExpr</frontend_model>
+                        <backend_model>MegaBank\Payment\Model\Config\Backend\CronExpr</backend_model>
+                    </field>
+                    <field id="close_action" translate="label" type="button" sortOrder="25" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <frontend_model>MegaBank\Payment\Block\Adminhtml\System\Config\Form\Field\CloseBusinessDay</frontend_model>
+                    </field>
+                </group>
+            </group>
+        </section>
+    </system>
+</config>
